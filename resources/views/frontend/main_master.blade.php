@@ -56,6 +56,7 @@
 @yield('content')
 <!-- /#top-banner-and-menu --> 
 
+
 <!-- ============================================================= FOOTER ============================================================= -->
 @include('frontend.body.footer')
 <!-- ============================================================= FOOTER : END============================================================= --> 
@@ -78,7 +79,59 @@
 <script src="{{ asset('frontend/assets/js/wow.min.js')}}"></script> 
 <script src="{{ asset('frontend/assets/js/scripts.js')}}"></script>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</body>
+<script type="text/javascript">
+  
+  $(function(){
+    
+        $(document).on('click','#delete',function(e){
+           e.preventDefault();
+           var link = $(this).attr("href");
 
+           Swal.fire({
+            title: 'Are you sure?',
+            text: "Delete This Data!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+             }).then((result) => {
+             if (result.isConfirmed) {
+                window.location.href = link
+                   Swal.fire(
+                      'Deleting....',
+                      '',
+                      'info'
+                    )
+             }
+          })
+        });
+     });
  
+ /************************************************/
 
+ @if(Session::has('message'))
+ var type = "{{ Session::get('alert-type','info') }}"
+ switch(type){
+    case 'info':
+    toastr.info(" {{ Session::get('message') }} ");
+    break;
+
+    case 'success':
+    toastr.success(" {{ Session::get('message') }} ");
+    break;
+
+    case 'warning':
+    toastr.warning(" {{ Session::get('message') }} ");
+    break;
+
+    case 'error':
+    toastr.error(" {{ Session::get('message') }} ");
+    break;
+ }
+ @endif   
+</script>
 </html>

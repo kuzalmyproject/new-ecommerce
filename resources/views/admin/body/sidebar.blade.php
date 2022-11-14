@@ -10,7 +10,7 @@ $route = Route::current()->getName();
     
     <div class="user-profile">
       <div class="ulogo">
-        <a href="{{ route('dashboard')}}">
+        <a href="{{ url('admin/dashboard')}}">
           <!-- logo for regular state and mobile devices -->
           <div class="d-flex align-items-center justify-content-center">
             <img src="{{ asset('backend/images/logo-dark.png')}}" alt="">
@@ -23,8 +23,8 @@ $route = Route::current()->getName();
     <!-- sidebar menu-->
     <ul class="sidebar-menu" data-widget="tree">
       
-      <li>
-        <a href="{{ route('admin.home')}}">
+      <li class=" {{ ($route == 'dashboard')?'active':'' }}">
+        <a href="{{ url('admin/dashboard')}}">
           <i data-feather="pie-chart"></i>
           <span>Dashboard</span>
         </a>
@@ -38,39 +38,57 @@ $route = Route::current()->getName();
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="{{ route('admin.profile.view') }}"><i class="ti-more"></i>Your Profile</a></li>
-          <li><a href="{{ route('admin.password.view') }}"><i class="ti-more"></i>Change Password</a></li>
+          <li class=" {{ ($route == 'admin.profile.view')?'active':'' }}"><a href="{{ route('admin.profile.view') }}"><i class="ti-more"></i>Your Profile</a></li>
+          <li class ="{{ ($route == 'admin.password.view')?'active':'' }}"><a href="{{ route('admin.password.view') }}"><i class="ti-more"></i>Change Password</a></li>
         </ul>
       </li>
-      
-      <li class="treeview">
+
+      <li class="treeview  {{ ($prefix == '/brand')?'active':'' }}">
         <a href="#">
-          <i data-feather="mail"></i> <span>Mailbox</span>
+          <i data-feather="bookmark"></i> <span>Brands</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-right pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="mailbox_inbox.html"><i class="ti-more"></i>Inbox</a></li>
-          <li><a href="mailbox_compose.html"><i class="ti-more"></i>Compose</a></li>
-          <li><a href="mailbox_read_mail.html"><i class="ti-more"></i>Read</a></li>
+          <li  class =""><a href="{{route('brand.view')}}"><i class="ti-more"></i>All Brand</a></li>
         </ul>
       </li>
-      
-      <li class="treeview">
+      <li class="treeview {{ ($prefix == '/category')?'active':'' }}">
         <a href="#">
-          <i data-feather="file"></i>
-          <span>Pages</span>
+          <i data-feather="filter"></i> <span>Category</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-right pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="profile.html"><i class="ti-more"></i>Profile</a></li>
-          <li><a href="invoice.html"><i class="ti-more"></i>Invoice</a></li>
-          <li><a href="gallery.html"><i class="ti-more"></i>Gallery</a></li>
-          <li><a href="faq.html"><i class="ti-more"></i>FAQs</a></li>
-          <li><a href="timeline.html"><i class="ti-more"></i>Timeline</a></li>
+          <li class =""><a href="{{route('category.view')}}"><i class="ti-more"></i>All Category</a></li>
+          <li class =""><a href=""><i class="ti-more"></i>All SubCategory</a></li>
+          <li class =""><a href=""><i class="ti-more"></i>All SubSubCategory</a></li>
+        </ul>
+      </li>
+      <li class="treeview {{ ($prefix == '/product')?'active':'' }}">
+        <a href="#">
+          <i data-feather="database"></i> <span>Products</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li class =""><a href=""><i class="ti-more"></i>Add Products</a></li>
+          <li class =""><a href=""><i class="ti-more"></i>Manage Products</a></li>
+        </ul>
+      </li>
+      
+      <li class="treeview {{ ($prefix == '/slider')?'active':'' }}">
+        <a href="#">
+          <i data-feather="grid"></i> <span>Slider</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li class =""><a href=""><i class="ti-more"></i>Manage Slider</a></li>
         </ul>
       </li>
       

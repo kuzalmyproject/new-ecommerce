@@ -36,14 +36,14 @@
               </ul>
             </li>
             <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">
-          
+            @if(session()->get('language') == 'sinhala') භාෂාව @else language @endif
              </span><b class="caret"></b></a>
               <ul class="dropdown-menu">
-                
-                <li><a href="">English</a></li>
-                
-                <li><a href=>සිංහල</a></li>
-            
+                @if(session()->get('language') == 'sinhala')
+                <li><a href="{{ route('english.language')}}">English</a></li>
+                @else
+                <li><a href="{{ route('sinhala.language')}}">සිංහල</a></li>
+                @endif
               </ul>
             </li>
           </ul>
@@ -156,26 +156,42 @@
             <div class="nav-outer">
               <ul class="nav navbar-nav">
                 <li class="active dropdown yamm-fw"> <a href="{{ url('/')}}" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown"> @if(session()->get('language') == 'sinhala') මුල් පිටුව @else Home @endif</a> </li>
-        
+                @php
+
+                $categories = App\Models\Category::orderBy('category_name_en','ASC')->get();
+
+                @endphp
+
+                @foreach($categories as $category)
                 <li class="dropdown yamm mega-menu"> <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">
-</a>
+                  @if(session()->get('language') == 'sinhala') {{$category->category_name_sin}} @else {{$category->category_name_en}} @endif</a>
                   <ul class="dropdown-menu container">
                     <li>
                       <div class="yamm-content ">
                         <div class="row">
-                          
+                          @php
+
+                          $subcategories = App\Models\SubCategory::where("category_id",$category->id)->orderBy('subcategory_name_en','ASC')->get();
+
+                          @endphp
+                          @foreach($subcategories as $subcategory)
                           <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
                             
-                            <h2 class="title"></h2>
+                            <h2 class="title">@if(session()->get('language') == 'sinhala') {{$subcategory->subcategory_name_sin}} @else {{$subcategory->subcategory_name_en}} @endif</h2>
                           
-                          
+                          @php
+
+                          $subsubcategories = App\Models\SubSubCategory::where("subcategory_id",$subcategory->id)->orderBy('subsubcategory_name_en','ASC')->get();
+
+                          @endphp
+                          @foreach($subsubcategories as $subsubcategory)
                             <ul class="links">
-                              <li><a href="#"></a></li>
+                              <li><a href="#">@if(session()->get('language') == 'sinhala') {{$subsubcategory->subsubcategory_name_sin}} @else {{$subsubcategory->subsubcategory_name_en}} @endif</a></li>
                             </ul>
-                          
+                          @endforeach
                           </div>
                           <!-- /.col -->
-                          
+                          @endforeach
                           <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image"> <img class="img-responsive" src="{{ asset('frontend/assets/images/banners/top-menu-banner.jpg')}}" alt=""> </div>
                           <!-- /.yamm-content --> 
                         </div>
@@ -183,7 +199,7 @@
                     </li>
                   </ul>
                 </li>
-                
+                @endforeach
                 <li class="dropdown  navbar-right special-menu"> <a href="#">Todays offer</a> </li>
               </ul>
               <!-- /.navbar-nav -->

@@ -20,8 +20,8 @@
 					</a>
 				</li>
 				<li class="btn-group nav-item d-none d-xl-inline-block">
-					<a href="calendar.html" class="waves-effect waves-light nav-link rounded svg-bt-icon" title="">
-						<i class="ti-calendar"></i>
+					<a href="{{ route('home')}}" class="waves-effect waves-light nav-link rounded svg-bt-icon" target="_blank">
+						<i class="ti-desktop"></i>
 					</a>
 				</li>
 			</ul>
@@ -99,7 +99,7 @@
 					</ul>
 				</li>
 				@php
-				$adminData = DB::table('admins')->first();
+	      $admin = DB::table('admins')->where('id',1)->first();
         @endphp
 				<!-- User Account-->
 				<li class="dropdown user user-menu">

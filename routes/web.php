@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\backend\AdminProfileController;
+use App\Http\Controllers\backend\BrandController;
+use App\Http\Controllers\backend\CategoryController;
 
 
 use App\Http\Controllers\frontend\IndexController;
@@ -61,6 +63,26 @@ Route::prefix('profile')->group(function(){
 });//end of the profile controller group
 
 
+Route::prefix('brand')->group(function(){
+
+    Route::get('/view',[BrandController::class, 'BrandView'])->name('brand.view');
+    Route::post('/store',[BrandController::class, 'BrandStore'])->name('brand.store');
+    Route::get('/edit/{id}',[BrandController::class, 'BrandEdit'])->name('brand.edit');
+    Route::post('/update',[BrandController::class, 'BrandUpdate'])->name('brand.update');
+
+    Route::get('/delete/{id}',[BrandController::class, 'BrandDelete'])->name('brand.delete');
+
+    
+
+});
+
+Route::prefix('category')->group(function(){
+    Route::get('/view',[CategoryController::class, 'CategoryView'])->name('category.view');
+
+
+});
+
+
 });//end of the middleware
 
 /*****************************User Related All Route List*************************/
@@ -73,4 +95,22 @@ Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function 
 
 
 Route::get('/',[IndexController::class,'index']);
+
+Route::prefix('user')->group(function(){
+
+    Route::get('/logout',[IndexController::class,'UserLogout'])->name('user.logout');
+
+
+    Route::get('/profile',[IndexController::class,'UserProfile'])->name('user.profile');
+    
+    
+    
+    Route::post('/profile/update',[IndexController::class,'UserProfileUpdate'])->name('user.profile.update');
+    
+    Route::get('/change/password',[IndexController::class,'UserPassword'])->name('user.password');
+    Route::post('/password/update',[IndexController::class,'UserPasswordChange'])->name('user.password.change');
+
+    
+
+});
 

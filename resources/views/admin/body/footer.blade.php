@@ -5,7 +5,7 @@
 			<a class="nav-link" href="javascript:void(0)">Content Creator</a>
 		  </li>
 		  <li class="nav-item">
-			
+			<a class="nav-link" href="https://www.facebook.com/NipunSachinda" target="_blank">Nipun Sachinda</a>
 		  </li>
 		</ul>
     </div>

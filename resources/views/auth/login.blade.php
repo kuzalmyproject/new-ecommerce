@@ -29,7 +29,7 @@
             <label class="info-title" for="email">Email Address <span>*</span></label>
             <input type="email" class="form-control unicase-form-control text-input" id="email" name="email" >
             @error('email')
-            <span class="invalid-feedback" role="alert">
+            <span class="invalid-feedback" role="alert" style="color:red">
                 <strong> {{ $message }}</strong>
             </span>
             @enderror
@@ -37,8 +37,8 @@
         <div class="form-group">
             <label class="info-title" for="password">Password <span>*</span></label>
             <input type="password" class="form-control unicase-form-control text-input" id="password" name="password" >
-             @error('password')
-            <span class="invalid-feedback" role="alert">
+            @error('password')
+            <span class="invalid-feedback" role="alert" style="color:red">
                 <strong> {{ $message }}</strong>
             </span>
             @enderror

@@ -66,15 +66,15 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
-<form method="post" action="" enctype="multipart/form-data">
+<form method="post" action="{{route('category.store')}}" enctype="multipart/form-data">
 	@csrf
 	<div class="row">
 		<div class="col-12">
 			<div class="form-group">
 				<h5>Category Name English <span class="text-danger">*</span></h5>
 				<div class="controls">
-					<input type="text" name="category_name_en" id="category_name_en" class="form-control" >
-					@error('category_name_en')
+					<input type="text" name="category_name" id="category_name_en" class="form-control" >
+					@error('category_name')
 					<span class="text-danger">{{ $message }}</span>
 					@enderror
 				</div>

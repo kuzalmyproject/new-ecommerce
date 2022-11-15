@@ -32,7 +32,7 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
-<form method="post" action="{{ route('subsubcategory.update',$subsubcategory->id) }}" >
+<form method="post" action="" >
 	@csrf
 	<div class="row">
 		<div class="col-12">
@@ -57,7 +57,7 @@
 				<select class="custom-select form-control" name="subcategory_id" id="subcategory_id">
 					<option value="" selected="" disabled="">Select Sub Category Name</option>
 					 @foreach($subcategories as $subcategory)
-				   <option value="{{ $subcategory->id }}" {{ $subcategory->id == $subsubcategory->	subcategory_id ? 'selected': ''}} >{{ $subcategory->subcategory_name_en }}</option>
+				   <option value="{{ $subcategory->id }}" {{ $subcategory->id == $subsubcategory->	subcategory_id ? 'selected': ''}} >{{ $subcategory->subcategory_name }}</option>
 				   @endforeach
 				</select>
 				@error('subcategory_id')

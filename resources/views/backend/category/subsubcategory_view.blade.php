@@ -1,6 +1,5 @@
 @extends('admin.admin_master')
 @section('admin')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	  <div class="container-full">
 		<!-- Content Header (Page header) -->
 <!-- 		<div class="content-header">
@@ -76,10 +75,10 @@
 		<div class="col-12">
 			<div class="form-group">
 				<h5>Category Name <span class="text-danger">*</span></h5>
-				<select class="custom-select form-control" name="category_id" id="category_id">
+				<select class="custom-select form-control" name="sub_category_name" id="sub_category_name">
 					<option value="" selected="" disabled="">Select Category Name</option>
 				   @foreach($categories as $category)
-						<option value="{{ $category->id }}">{{ $category->category_name_en }}</option>
+						<option value="{{ $category->id }}">{{ $category->category_name }}</option>
 				    @endforeach
 				</select>
 				@error('category_id')
@@ -88,7 +87,7 @@
 			</div>
 			<div class="form-group">
 				<h5>Sub Category Name <span class="text-danger">*</span></h5>
-				<select class="custom-select form-control" name="subcategory_id" id="subcategory_id">
+				<select class="custom-select form-control" name="sub_category" id="sub_category">
 					<option value="" selected="" disabled="">Select Sub Category Name</option>
 				</select>
 				@error('subcategory_id')
@@ -96,25 +95,16 @@
 				@enderror
 			</div>
 			<div class="form-group">
-				<h5>SubCategory Name English <span class="text-danger">*</span></h5>
+				<h5>Sub-Sub Category Name English <span class="text-danger">*</span></h5>
 				<div class="controls">
-					<input type="text" name="subsubcategory_name_en" id="subsubcategory_name_en" class="form-control" >
-					@error('subsubcategory_name_en')
+					<input type="text" name="subsubcategory_name" id="subsubcategory_name" class="form-control" >
+					@error('subsubcategory_name')
 					<span class="text-danger">{{ $message }}</span>
 					@enderror
 				</div>
 				
 			</div>
-			<div class="form-group">
-				<h5>SubCategory Name Sinhala <span class="text-danger">*</span></h5>
-				<div class="controls">
-					<input type="text" name="subsubcategory_name_sin" id="subsubcategory_name_sin" class="form-control"  >
-					@error('subsubcategory_name_sin')
-					<span class="text-danger">{{ $message }}</span>
-					@enderror
-				</div>
-				
-			</div>
+			
 			<div class="text-xs-right">
 				<input type="submit" class="btn btn-rounded btn-primary btn-info mb-5" value="Add New">
 			</div>
@@ -134,26 +124,28 @@
 	  
 	  </div>
 
-<script type="text/javascript">
-      $(document).ready(function() {
-        $('select[name="category_id"]').on('change', function(){
-            var category_id = $(this).val();
-            if(category_id) {
-                $.ajax({
-                    url: "{{  url('/category/subcategory/ajax') }}/"+category_id,
-                    type:"GET",
-                    dataType:"json",
-                    success:function(data) {
-                       var d =$('select[name="subcategory_id"]').empty();
-                          $.each(data, function(key, value){
-                              $('select[name="subcategory_id"]').append('<option value="'+ value.id +'">' + value.subcategory_name_en + '</option>');
-                          });
-                    },
-                });
-            } else {
-                alert('danger');
-            }
-        });
-    });
-    </script>
+	  <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+        
+		<script>
+					$(document).ready(function () {
+					$('#sub_category_name').on('change', function () {
+					let id = $(this).val();
+					$('#sub_category').empty();
+					$('#sub_category').append(`<option value="0" disabled selected>Processing...</option>`);
+					$.ajax({
+					type: 'GET',
+					url: 'GetSubCatAgainstMainCatEdit/' + id,
+					success: function (response) {
+					var response = JSON.parse(response);
+					console.log(response);   
+					$('#sub_category').empty();
+					$('#sub_category').append(`<option value="0" disabled selected>Select Sub Category*</option>`);
+					response.forEach(element => {
+						$('#sub_category').append(`<option value="${element['id']}">${element['name']}</option>`);
+						});
+					}
+				});
+			});
+		});
+		</script>
 @endsection

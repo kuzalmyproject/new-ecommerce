@@ -41,15 +41,17 @@
 							</tr>
 						</thead>
 						<tbody>
+							@foreach($categories as $category)
 							<tr>
-								<td></td>
-								<td></td>
+							<td><img src="{{ asset($category->category_image) }}" style="width: 70px; height: 40px;"></td>
+								<td>{{$category->category_name}}</td>
 								
 								<td width="30%">
-									<a href="" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>
-									<a href="" class="btn btn-danger" id="delete" title="Delete Data"><i class="fa fa-trash"></i></a>
+									<a href="{{route('category.edit',$category->id)}}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>
+									<a href="{{route('category.delete',$category->id)}}" class="btn btn-danger" id="delete" title="Delete Data"><i class="fa fa-trash"></i></a>
 								</td>
 							</tr>
+							@endforeach
 						</tbody>
 					  </table>
 					</div>

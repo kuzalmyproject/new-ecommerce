@@ -32,39 +32,32 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
-<form method="post" action="{{ route('category.update',$category->id) }}" enctype="multipart/form-data">
+<form method="post" action="{{route('category.update')}}" enctype="multipart/form-data">
 	@csrf
 	<div class="row">
 		<div class="col-12">
 			<!-- /**************************************************/ -->
 			<input type="hidden" name="id" value="{{ $category->id}}">
 
+			<input type="hidden" name="old_image" value="{{ $category->category_image}}">
+
 			<!-- /***************************************************/ -->
 			<div class="form-group">
 				<h5>Category Name English <span class="text-danger">*</span></h5>
 				<div class="controls">
-					<input type="text" name="category_name_en" id="category_name_en" class="form-control" value="{{ $category->category_name_en}}">
-					@error('category_name_en')
+					<input type="text" name="category_name" id="category_name_en" class="form-control" value="{{ $category->category_name}}">
+					@error('category_name')
 					<span class="text-danger">{{ $message }}</span>
 					@enderror
 				</div>
 				
 			</div>
+			
 			<div class="form-group">
-				<h5>Category Name Sinhala <span class="text-danger">*</span></h5>
+				<h5>Category Image<span class="text-danger">*</span></h5>
 				<div class="controls">
-					<input type="text" name="category_name_sin" id="category_name_sin" class="form-control"  value="{{ $category->category_name_sin}}">
-					@error('category_name_sin')
-					<span class="text-danger">{{ $message }}</span>
-					@enderror
-				</div>
-				
-			</div>
-			<div class="form-group">
-				<h5>Category Icon<span class="text-danger">*</span></h5>
-				<div class="controls">
-					<input type="text" name="category_icon" id="category_icon" class="form-control" value="{{ $category->category_icon}}">
-					@error('category_icon')
+					<input type="file" name="category_image" id="category_icon" class="form-control" value="">
+					@error('category_image')
 					<span class="text-danger">{{ $message }}</span>
 					@enderror
 				</div>

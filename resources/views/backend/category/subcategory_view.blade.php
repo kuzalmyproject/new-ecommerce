@@ -36,20 +36,20 @@
 						<thead>
 							<tr>
 								<td>Category</td>
-								<td>SubCategory En</td>
-								<td>SubCategory Sin</td>
+								<td>SubCategory </td>
+							
 								<td>Action</td>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($subcategories as $subcategory)
 							<tr>
-								<td>{{$subcategory['category']['category_name_en']}}</td>
-								<td>{{$subcategory->subcategory_name_en}}</td>
-								<td>{{$subcategory->subcategory_name_sin}}</td>
+								<td>{{$subcategory['category']['category_name']}}</td>
+								<td>{{$subcategory->subcategory_name}}</td>
+								
 								<td width="30%">
-									<a href="{{ route('subcategory.edit',$subcategory->id)}}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>
-									<a href="{{ route('subcategory.delete',$subcategory->id)}}" class="btn btn-danger" id="delete" title="Delete Data"><i class="fa fa-trash"></i></a>
+								<a href="{{route('subcategory.edit',$subcategory->id)}}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>
+									<a href="{{route('subcategory.delete',$subcategory->id)}}" class="btn btn-danger" id="delete" title="Delete Data"><i class="fa fa-trash"></i></a>
 								</td>
 							</tr>
 							@endforeach
@@ -69,7 +69,7 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
-<form method="post" action="{{ route('subcategory.store') }}" >
+<form method="post" action="{{route('subcategory.store')}}" >
 	@csrf
 	<div class="row">
 		<div class="col-12">
@@ -78,33 +78,24 @@
 				<select class="custom-select form-control" name="category_id" id="category_id">
 					<option value="" selected="" disabled="">Select Category Name</option>
 				   @foreach($categories as $category)
-						<option value="{{ $category->id }}">{{ $category->category_name_en }}</option>
-				    @endforeach
+						<option value="{{$category->id}}">{{$category->category_name}}</option>
+				@endforeach
 				</select>
 				@error('category_id')
-					<span class="text-danger">{{ $message }}</span>
+				<span class="text-danger">{{ $message }}</span>
 				@enderror
 			</div>
 			<div class="form-group">
 				<h5>SubCategory Name English <span class="text-danger">*</span></h5>
 				<div class="controls">
-					<input type="text" name="subcategory_name_en" id="subcategory_name_en" class="form-control" >
-					@error('subcategory_name_en')
+					<input type="text" name="subcategory_name" id="subcategory_name_en" class="form-control" >
+					@error('subcategory_name')
 					<span class="text-danger">{{ $message }}</span>
 					@enderror
 				</div>
 				
 			</div>
-			<div class="form-group">
-				<h5>SubCategory Name Sinhala <span class="text-danger">*</span></h5>
-				<div class="controls">
-					<input type="text" name="subcategory_name_sin" id="subcategory_name_sin" class="form-control"  >
-					@error('subcategory_name_sin')
-					<span class="text-danger">{{ $message }}</span>
-					@enderror
-				</div>
-				
-			</div>
+			
 			<div class="text-xs-right">
 				<input type="submit" class="btn btn-rounded btn-primary btn-info mb-5" value="Add New">
 			</div>

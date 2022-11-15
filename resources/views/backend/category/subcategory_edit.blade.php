@@ -32,12 +32,12 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
-<form method="post" action="{{ route('subcategory.update',$subcategory->id) }}" enctype="multipart/form-data">
+<form method="post" action="{{route('subcategory.update')}}" enctype="multipart/form-data">
 	@csrf
 	<div class="row">
 		<div class="col-12">
 			<!-- /**************************************************/ -->
-			<input type="hidden" name="id" value="{{ $subcategory->id}}">
+			<input type="hidden" name="id" value="{{$subcategory->id}}">
 
 			<!-- /***************************************************/ -->
 			<div class="form-group">
@@ -45,7 +45,7 @@
 				<select class="custom-select form-control" name="category_id" id="category_id">
 					<option value="" selected="" disabled="">Select Category Name</option>
 				   @foreach($categories as $category)
-				   <option value="{{ $category->id }}" {{ $category->id == $subcategory->	category_id ? 'selected': ''}} >{{ $category->category_name_en }}</option>
+				   <option value="{{ $category->id }}" {{ $category->id == $subcategory->	category_id ? 'selected': ''}} >{{ $category->category_name }}</option>
 				   @endforeach
 				</select>
 				@error('category_id')
@@ -55,24 +55,14 @@
 			<div class="form-group">
 				<h5>SubCategory Name English <span class="text-danger">*</span></h5>
 				<div class="controls">
-					<input type="text" name="subcategory_name_en" id="subcategory_name_en" class="form-control" value="{{ $subcategory->subcategory_name_en}}">
-					@error('subcategory_name_en')
+					<input type="text" name="subcategory_name" id="subcategory_name_en" class="form-control" value="{{ $subcategory->subcategory_name}}">
+					@error('subcategory_name')
 					<span class="text-danger">{{ $message }}</span>
 					@enderror
 				</div>
 				
 			</div>
-			<div class="form-group">
-				<h5>Subcategory Name Sinhala <span class="text-danger">*</span></h5>
-				<div class="controls">
-					<input type="text" name="subcategory_name_sin" id="subcategory_name_sin" class="form-control"  value="{{ $subcategory->subcategory_name_sin}}">
-					@error('subcategory_name_sin')
-					<span class="text-danger">{{ $message }}</span>
-					@enderror
-				</div>
-				
-			</div>
-
+			
 			<div class="text-xs-right">
 				<input type="submit" class="btn btn-rounded btn-primary btn-info mb-5" value="Update">
 			</div>

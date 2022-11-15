@@ -15,4 +15,10 @@ class Category extends Model
     
         'category_image'
     ];
+
+
+    public function subcategory(){
+        
+        return $this->hasMany(Subcategory::class,'category_id','id');
+    }
 }

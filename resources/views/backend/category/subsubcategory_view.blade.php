@@ -1,5 +1,7 @@
 @extends('admin.admin_master')
 @section('admin')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 	  <div class="container-full">
 		<!-- Content Header (Page header) -->
 <!-- 		<div class="content-header">
@@ -44,10 +46,10 @@
 						<tbody>
 							@foreach($subsubcategories as $subsubcategory)
 							<tr>
-								<td>{{$subsubcategory['category']['category_name_en']}}</td>
-								<td>{{$subsubcategory['subcategory']['subcategory_name_en']}}</td>
-								<td>{{$subsubcategory->subsubcategory_name_en}}</td>
-								<td width="30%">
+								<td>{{$subsubcategory['category']['category_name']}}</td>
+								<td>{{$subsubcategory['subcategory']['subcategory_name']}}</td>
+								<td>{{$subsubcategory->subsubcategory_name}}</td>
+								<td width="60%">
 									<a href="{{ route('subsubcategory.edit',$subsubcategory->id)}}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>
 									<a href="{{ route('subsubcategory.delete',$subsubcategory->id)}}" class="btn btn-danger" id="delete" title="Delete Data"><i class="fa fa-trash"></i></a>
 								</td>
@@ -73,9 +75,11 @@
 	@csrf
 	<div class="row">
 		<div class="col-12">
+
+
 			<div class="form-group">
 				<h5>Category Name <span class="text-danger">*</span></h5>
-				<select class="custom-select form-control" name="sub_category_name" id="sub_category_name">
+				<select class="custom-select form-control" name="category_id" id="category_id">
 					<option value="" selected="" disabled="">Select Category Name</option>
 				   @foreach($categories as $category)
 						<option value="{{ $category->id }}">{{ $category->category_name }}</option>
@@ -87,12 +91,14 @@
 			</div>
 			<div class="form-group">
 				<h5>Sub Category Name <span class="text-danger">*</span></h5>
-				<select class="custom-select form-control" name="sub_category" id="sub_category">
-					<option value="" selected="" disabled="">Select Sub Category Name</option>
-				</select>
-				@error('subcategory_id')
-					<span class="text-danger">{{ $message }}</span>
-				@enderror
+				<div class="controls">
+					<select name="subcategory_id" class="form-control">
+						<option value="" selected="" disabled="">Select SubCategory</option>
+</select>
+
+
+</div>
+
 			</div>
 			<div class="form-group">
 				<h5>Sub-Sub Category Name English <span class="text-danger">*</span></h5>
@@ -124,28 +130,28 @@
 	  
 	  </div>
 
-	  <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
         
-		<script>
-					$(document).ready(function () {
-					$('#sub_category_name').on('change', function () {
-					let id = $(this).val();
-					$('#sub_category').empty();
-					$('#sub_category').append(`<option value="0" disabled selected>Processing...</option>`);
-					$.ajax({
-					type: 'GET',
-					url: 'GetSubCatAgainstMainCatEdit/' + id,
-					success: function (response) {
-					var response = JSON.parse(response);
-					console.log(response);   
-					$('#sub_category').empty();
-					$('#sub_category').append(`<option value="0" disabled selected>Select Sub Category*</option>`);
-					response.forEach(element => {
-						$('#sub_category').append(`<option value="${element['id']}">${element['name']}</option>`);
-						});
-					}
-				});
-			});
-		});
-		</script>
+	  <script type="text/javascript">
+      $(document).ready(function() {
+        $('select[name="category_id"]').on('change', function(){
+            var category_id = $(this).val();
+            if(category_id) {
+                $.ajax({
+
+                    url: "{{  url('/category/subcategory/ajax') }}/"+category_id,
+                    type:"GET",
+                    dataType:"json",
+                    success:function(data) {
+                       var d =$('select[name="subcategory_id"]').empty();
+                          $.each(data, function(key, value){
+                              $('select[name="subcategory_id"]').append('<option value="'+ value.id +'">' + value.subcategory_name + '</option>');
+                          });
+                    },
+                });
+            } else {
+                alert('danger');
+            }
+        });
+    });
+    </script>
 @endsection

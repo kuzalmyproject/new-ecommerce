@@ -53,7 +53,7 @@ class SubSubCategoryController extends Controller
 
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
-            'subsubcategory_name' => $request->subsubcategory_name_en,
+            'subsubcategory_name' => $request->subsubcategory_name,
             'subsubcategory_slug' => strtolower(str_replace(' ','-',$request->subsubcategory_name)),
          ]);
 

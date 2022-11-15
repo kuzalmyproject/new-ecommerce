@@ -133,6 +133,8 @@ class CategoryController extends Controller
         @unlink($image);
 
 $category->subcategory()->delete();
+$category->subsubcategory()->delete();
+
 $category->delete();
         $notification=array(
             'message' => 'Category deleted Successfully',

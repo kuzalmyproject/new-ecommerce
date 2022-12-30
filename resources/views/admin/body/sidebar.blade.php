@@ -75,20 +75,20 @@ $route = Route::current()->getName();
           </span>
         </a>
         <ul class="treeview-menu">
-          <li class =""><a href=""><i class="ti-more"></i>Add Products</a></li>
-          <li class =""><a href=""><i class="ti-more"></i>Manage Products</a></li>
+          <li class =""><a href="{{route('product.add')}}"><i class="ti-more"></i>Add Products</a></li>
+          <li class =""><a href="{{route('manage.product')}}"><i class="ti-more"></i>Manage Products</a></li>
         </ul>
       </li>
       
       <li class="treeview {{ ($prefix == '/slider')?'active':'' }}">
-        <a href="#">
+        <a href="">
           <i data-feather="grid"></i> <span>Slider</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-right pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li class =""><a href=""><i class="ti-more"></i>Manage Slider</a></li>
+          <li class =""><a href="{{route('manage.slider')}}"><i class="ti-more"></i>Manage Slider</a></li>
         </ul>
       </li>
       

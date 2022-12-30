@@ -21,9 +21,10 @@
 
 		<!-- Main content -->
 		<section class="content">
+		
 		  <div class="row">
  
-			<div class="col-8">
+			<div class="col-11">
 
 			 <div class="box">
 				<div class="box-header with-border">
@@ -39,13 +40,13 @@
 								<td>Title</td>
 								<td>Description</td>
 								<td>Status</td>
-								<td style="width:55%;">Action</td>
+								<td style="width:50%;">Action</td>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($sliders as $slider)
 							<tr>
-								<td><img src="{{ asset($slider->slider_img) }}" style="width: 70px; height: 40px;">
+								<td><img src="{{ asset($slider->slider_image) }}" style="width: 70px; height: 40px;">
 								</td>
 								<td>
                                    @if($slider->title == NULL)
@@ -54,7 +55,13 @@
 									{{$slider->title}}
 								   @endif
 								</td>
-								<td>{{$slider->description}}</td>
+								<td>
+                                   @if($slider->description == NULL)
+                                   <span class="badge badge-pill badge-danger">No Description</span>
+                                   @else
+									{{$slider->description}}
+								   @endif
+								</td>
 								<td>
 								   @if($slider->status == 1)
                                    <span class="badge badge-pill badge-success">Active</span>
@@ -63,12 +70,12 @@
 								   @endif
 								</td>
 								<td width="30%">
-									<a href="{{ route('slider.edit',$slider->id)}}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>
-									<a href="{{ route('slider.delete',$slider->id)}}" class="btn btn-danger" id="delete" title="Delete Data"><i class="fa fa-trash"></i></a>
+									<a href="{{route('slider.edit',$slider->id)}}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>
+									<a href="{{route('slider.delete',$slider->id)}}" class="btn btn-danger" id="delete" title="Delete Data"><i class="fa fa-trash"></i></a>
 									@if($slider->status == 1)
-									<a href="{{ route('slider.inactive',$slider->id) }}" class="btn btn-danger" title="Inactive Now"><i class="fa fa-arrow-down"></i> </a>
+									<a href="{{route('slider.inactivate',$slider->id)}}" class="btn btn-danger" title="Inactive Now"><i class="fa fa-arrow-down"></i> </a>
 									@else
-									<a href="{{ route('slider.active',$slider->id) }}" class="btn btn-success" title="Active Now"><i class="fa fa-arrow-up"></i> </a>
+									<a href="{{route('slider.activate',$slider->id)}}" class="btn btn-success" title="Active Now"><i class="fa fa-arrow-up"></i> </a>
 									@endif
 								</td>
 							</tr>
@@ -89,7 +96,7 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
-<form method="post" action="{{ route('slider.store') }}" enctype="multipart/form-data">
+<form method="post" action="{{route('slider.store')}}" enctype="multipart/form-data">
 	@csrf
 	<div class="row">
 		<div class="col-12">

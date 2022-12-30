@@ -32,7 +32,7 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
-<form method="post" action="{{ route('slider.update',$slider->id) }}" enctype="multipart/form-data">
+<form method="post" action="{{route('slider.update')}}" enctype="multipart/form-data">
 	@csrf
 	<div class="row">
 		<div class="col-12">

@@ -20,7 +20,7 @@
 			  <div class="row">
 
 				<div class="col">
-		<form method="post" action="{{ route('product.store') }}" enctype="multipart/form-data" >
+		<form method="post" action="{{route('product.store')}}" enctype="multipart/form-data" >
 		 	@csrf
 					  <div class="row">
 	<div class="col-12">	
@@ -35,16 +35,13 @@
 		<select name="brand_id" class="form-control">
 			<option value="" selected="" disabled="">Select Brand</option>
 			@foreach($brands as $brand)
-             @if (old('brand_id') == $brand->id)
-				<option value="{{ $brand->id }}" selected>{{ $brand->brand_name_en }}</option>
-			   @else
-				<option value="{{ $brand->id }}">{{ $brand->brand_name_en }}</option>
-			   @endif
-			@endforeach
+				<option value="{{$brand->id}}">{{$brand->brand_name}}</option>
+			  
+			 @endforeach  
 		</select>
-		@error('brand_id') 
-	 <span class="text-danger">{{ $message }}</span>
-	 @enderror 
+		
+	 <span class="text-danger"></span>
+
 	 </div>
 		 </div>
 
@@ -57,17 +54,15 @@
 	<div class="controls">
 		<select name="category_id" class="form-control"  >
 			<option value="" selected="" disabled="">Select Category</option>
-			@foreach($categories as $category)
-            @if (old('category_id') == $category->id)
-				<option value="{{ $category->id }}" selected>{{ $category->category_name_en }}</option>
-			   @else
-				<option value="{{ $category->id }}">{{ $category->category_name_en }}</option>
-			   @endif	
-			@endforeach
+			
+				@foreach($categories as $category)
+			  
+				<option value="{{$category->id}}">{{$category->category_name}}</option>
+			  @endforeach
 		</select>
-		@error('category_id') 
-	 <span class="text-danger">{{ $message }}</span>
-	 @enderror 
+	 
+	 <span class="text-danger"></span>
+	
 	 </div>
 		 </div>
 
@@ -84,7 +79,7 @@
 
 		</select>
 		@error('subcategory_id') 
-	 <span class="text-danger">{{ $message }}</span>
+	 <span class="text-danger"></span>
 	 @enderror 
 	 </div>
 		 </div>
@@ -116,8 +111,8 @@
       	<div class="form-group">
 			<h5>Product Name English <span class="text-danger">*</span></h5>
 			<div class="controls">
-				<input type="text" name="product_name_en" class="form-control" value="{{ old('product_name_en')}}"> 
-          @error('product_name_en') 
+				<input type="text" name="product_name" class="form-control" value="{{ old('product_name_en')}}"> 
+          @error('product_name') 
 	       <span class="text-danger">{{ $message }}</span>
 	      @enderror
 			</div>
@@ -126,20 +121,7 @@
 			</div> <!-- end col md 4 -->
 
 
-			<div class="col-md-4">
-
-        <div class="form-group">
-			<h5>Product Name Sinhala <span class="text-danger">*</span></h5>
-			<div class="controls">
-				<input type="text" name="product_name_sin" class="form-control"  value="{{ old('product_name_sin')}}"> 
-          @error('product_name_sin') 
-	       <span class="text-danger">{{ $message }}</span>
-	      @enderror
-			</div>
-		</div>
-
-			</div> <!-- end col md 4 -->
-
+			
 		</div> <!-- end 2nd row  -->
 
 	<div class="row"> <!-- start 3rd row  -->
@@ -177,10 +159,10 @@
         <div class="form-group">
 			<h5>Product Tag English <span class="text-danger">*</span></h5>
 			<div class="controls">
-				<input type="text" name="product_tags_en" data-role="tagsinput" placeholder="add tags" class="form-control" value="{{ old('product_tags_en')}}">
+				<input type="text" name="product_tags" data-role="tagsinput" placeholder="add tags" class="form-control" value="{{ old('product_tags_en')}}">
 
 			</div>
-		  @error('product_tags_en') 
+		  @error('product_tags') 
 	       <span class="text-danger">{{ $message }}</span>
 	      @enderror
 		</div>
@@ -191,27 +173,14 @@
 
 
 		<div class="row"> <!-- start 4th row  -->
-			<div class="col-md-4">
-
-	             <div class="form-group">
-			<h5>Product Tag Sinhala <span class="text-danger">*</span></h5>
-			<div class="controls">
-				<input type="text" name="product_tags_sin" data-role="tagsinput" placeholder="add tags" class="form-control" value="{{ old('product_tags_sin')}}">
-			</div>
-		  @error('product_tags_sin') 
-	       <span class="text-danger">{{ $message }}</span>
-	      @enderror
-		</div>
-
-			</div> <!-- end col md 4 -->
-
+			
 			<div class="col-md-4">
 
       	<div class="form-group">
 			<h5>Product Size English <span class="text-danger">*</span></h5>
 			<div class="controls">
-				<input type="text" name="product_size_en" data-role="tagsinput" placeholder="add tags" value="Large,Medium,Small" class="form-control"> 
-          @error('product_size_en') 
+				<input type="text" name="product_size" data-role="tagsinput" placeholder="add tags" value="Large,Medium,Small" class="form-control"> 
+          @error('product_size') 
 	       <span class="text-danger">{{ $message }}</span>
 	      @enderror
 			</div>
@@ -220,20 +189,7 @@
 			</div> <!-- end col md 4 -->
 
 
-			<div class="col-md-4">
-
-        <div class="form-group">
-			<h5>Product Size Sinhala <span class="text-danger">*</span></h5>
-			<div class="controls">
-				<input type="text" name="product_size_sin" data-role="tagsinput" placeholder="add tags" value="ලොකු,පොඩ්,මද්‍යම" class="form-control"> 
-          @error('product_size_sin') 
-	       <span class="text-danger">{{ $message }}</span>
-	      @enderror
-			</div>
-		</div>
-
-			</div> <!-- end col md 4 -->
-
+		
 		</div> <!-- end 4th row  -->
 
 
@@ -243,8 +199,8 @@
 	       <div class="form-group">
 			<h5>Product Color English <span class="text-danger">*</span></h5>
 			<div class="controls">
-				<input type="text" name="product_color_en"  data-role="tagsinput" placeholder="add tags" value="Red,Blue,Black,White" class="form-control">
-          @error('product_color_en') 
+				<input type="text" name="product_color"  data-role="tagsinput" placeholder="add tags" value="Red,Blue,Black,White" class="form-control">
+          @error('product_color') 
 	       <span class="text-danger">{{ $message }}</span>
 	      @enderror
 			</div>
@@ -252,19 +208,7 @@
 
 			</div> <!-- end col md 4 -->
 
-			<div class="col-md-4">
-
-      	<div class="form-group">
-			<h5>Product Color Sinhala <span class="text-danger">*</span></h5>
-			<div class="controls">
-				<input type="text" name="product_color_sin" data-role="tagsinput" placeholder="add tags" value="රතු,නිල්,කළු,සුදු" class="form-control"> 
-          @error('product_color_sin') 
-	       <span class="text-danger">{{ $message }}</span>
-	      @enderror
-			</div>
-		</div>
-
-			</div> <!-- end col md 4 -->
+			
 
 
 			<div class="col-md-4">
@@ -340,8 +284,8 @@
 	       <div class="form-group">
 			<h5>Short Description English<span class="text-danger">*</span></h5>
 			<div class="controls">
-				<textarea name="short_descp_en" id="short_descp_en" class="form-control" ></textarea>
-				@error('short_descp_en') 
+				<textarea name="short_descp" id="short_descp" class="form-control" ></textarea>
+				@error('short_descp') 
 	              <span class="text-danger">{{ $message }}</span>
 	            @enderror
 			</div>
@@ -349,19 +293,7 @@
 
 			</div> <!-- end col md 6 -->
 
-			<div class="col-md-6">
-
-      	<div class="form-group">
-			<h5>Short Description Sinhala<span class="text-danger">*</span></h5>
-			<div class="controls">
-				<textarea name="short_descp_sin" id="short_descp_sin" class="form-control" ></textarea>
-				@error('short_descp_sin') 
-	              <span class="text-danger">{{ $message }}</span>
-	            @enderror
-			</div>
-		</div>
-
-			</div> <!-- end col md 6 -->
+			
 
 
 		</div> <!-- end 7th row  -->
@@ -372,22 +304,8 @@
 	       <div class="form-group">
 			<h5>Long Description English<span class="text-danger">*</span></h5>
 			<div class="controls">
-				<textarea name="long_descp_en" id="editor1" rows="10" cols="80" class="form-control" >Long Description English</textarea>
-				@error('long_descp_en') 
-	              <span class="text-danger">{{ $message }}</span>
-	            @enderror
-			</div>
-		</div>
-
-			</div> <!-- end col md 6 -->
-
-			<div class="col-md-6">
-
-      	<div class="form-group">
-			<h5>Long Description Sinhala<span class="text-danger">*</span></h5>
-			<div class="controls">
-				<textarea name="long_descp_sin" id="editor2" rows="10" cols="80" class="form-control" >Long Description Sinhala</textarea>
-				@error('long_descp_sin') 
+				<textarea name="long_descp" id="editor1" rows="10" cols="80" class="form-control" >Long Description English</textarea>
+				@error('long_descp') 
 	              <span class="text-danger">{{ $message }}</span>
 	            @enderror
 			</div>
@@ -482,7 +400,7 @@
                        $('select[name="subsubcategory_id"]').html('');
                        var d =$('select[name="subcategory_id"]').empty();
                           $.each(data, function(key, value){
-                              $('select[name="subcategory_id"]').append('<option value="'+ value.id +'">' + value.subcategory_name_en + '</option>');
+                              $('select[name="subcategory_id"]').append('<option value="'+ value.id +'">' + value.subcategory_name + '</option>');
                           });
                     },
                 });
@@ -493,7 +411,7 @@
 
 
 
-    $('select[name="subcategory_id"]').on('change', function(){
+		$('select[name="subcategory_id"]').on('change', function(){
             var subcategory_id = $(this).val();
             if(subcategory_id) {
                 $.ajax({
@@ -503,7 +421,7 @@
                     success:function(data) {
                        var d =$('select[name="subsubcategory_id"]').empty();
                           $.each(data, function(key, value){
-                              $('select[name="subsubcategory_id"]').append('<option value="'+ value.id +'">' + value.subsubcategory_name_en + '</option>');
+                              $('select[name="subsubcategory_id"]').append('<option value="'+ value.id +'">' + value.subsubcategory_name + '</option>');
                           });
                     },
                 });
@@ -514,7 +432,6 @@
  
     });
     </script>
-
     <script type="text/javascript">
 	function mainThamUrl(input){
 		if (input.files && input.files[0]) {

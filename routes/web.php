@@ -8,6 +8,8 @@ use App\Http\Controllers\backend\BrandController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\SubSubCategoryController;
+use App\Http\Controllers\backend\ProductController;
+use App\Http\Controllers\backend\SliderController;
 
 
 use App\Http\Controllers\frontend\IndexController;
@@ -106,7 +108,7 @@ Route::get('/sub/sub/view',[SubSubCategoryController::class, 'SubSubCategoryView
 
   Route::get('/category/subcategory/ajax/{category_id}',[SubSubCategoryController::class, 'SubCategoryLoad']);
 
-  Route::get('/sub-subcategory/ajax/{subcategory_id}',[SubSubCategoryController::class, 'SubSubCategoryLoad']);
+  Route::get('/category/sub-subcategory/ajax/{subcategory_id}',[SubSubCategoryController::class, 'SubSubCategoryLoad']);
 
   Route::post('/sub/sub/store',[SubSubCategoryController::class, 'SubSubCategoryStore'])->name('subsubcategory.store');
 
@@ -117,7 +119,49 @@ Route::get('/sub/sub/view',[SubSubCategoryController::class, 'SubSubCategoryView
   Route::get('/sub/sub/delete/{id}',[SubSubCategoryController::class, 'SubSubCategoryDelete'])->name('subsubcategory.delete');
 
 
+  Route::prefix('product')->group(function(){
 
+    Route::get('/add',[ProductController::class, 'ProductAdd'])->name('product.add');
+  
+    Route::post('/store',[ProductController::class, 'ProductStore'])->name('product.store');
+  
+    Route::get('/manage',[ProductController::class, 'ManageProduct'])->name('manage.product');
+  
+    Route::get('/edit/{id}',[ProductController::class, 'ProductEdit'])->name('product.edit');
+  
+    Route::post('/update',[ProductController::class, 'ProductUpdate'])->name('product.update');
+  
+    Route::post('/image/update', [ProductController::class, 'MultiImageUpdate'])->name('update.product.image');
+  
+    Route::post('/thambnail/update', [ProductController::class, 'ThambnailImageUpdate'])->name('update.product.thambnail');
+  
+    Route::get('/multiimg/delete/{id}', [ProductController::class, 'MultiImageDelete'])->name('product.multiimg.delete');
+  
+    Route::get('/inactive/{id}', [ProductController::class, 'ProductInactive'])->name('product.inactive');
+  
+     Route::get('/active/{id}', [ProductController::class, 'ProductActive'])->name('product.active');
+  
+     Route::get('/display/{id}',[ProductController::class, 'ProductDisplay'])->name('product.display');
+  
+    Route::get('/delete/{id}',[ProductController::class, 'ProductDelete'])->name('product.delete');
+  
+  });
+
+
+  Route::prefix('slider')->group(function(){
+
+    Route::get('/view',[SliderController::class, 'SliderView'])->name('manage.slider');
+    Route::post('/store',[SliderController::class, 'SliderStore'])->name('slider.store');
+    Route::get('/inactivate/{id}',[SliderController::class, 'SliderInactivate'])->name('slider.inactivate');
+    Route::get('/activate/{id}',[SliderController::class, 'Slideractivate'])->name('slider.activate');
+
+    Route::get('/delete/{id}',[SliderController::class, 'SliderDelete'])->name('slider.delete');
+
+    Route::get('/edit/{id}',[SliderController::class, 'SliderEdit'])->name('slider.edit');
+    Route::post('/update',[SliderController::class, 'SliderUpdate'])->name('slider.update');
+
+
+});
 
 });//end of the middleware
 
@@ -149,4 +193,3 @@ Route::prefix('user')->group(function(){
     
 
 });
-

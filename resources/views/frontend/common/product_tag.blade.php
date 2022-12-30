@@ -1,7 +1,4 @@
-@php
-$tags_en = App\Models\Product::groupBy('product_tags_en')->select('product_tags_en')->get();
-$tags_sin = App\Models\Product::groupBy('product_tags_sin')->select('product_tags_sin')->get();
-@endphp     
+    
 
 
 
@@ -12,22 +9,15 @@ $tags_sin = App\Models\Product::groupBy('product_tags_sin')->select('product_tag
 
 <div class="tag-list"> 
 
-@if(session()->get('language') == 'sinhala') 
 
-@foreach($tags_sin as $tag)
-<a class="item active" title="Phone" href="{{ url('product/tag/'.$tag->product_tags_sin) }}">
-	{{ str_replace(',',' ',$tag->product_tags_sin)  }}</a> 
-@endforeach
+<a class="item active" title="Phone" href="{{ url('product/tag/'.$tag->product_tags_hin) }}">
+</a>
 
- @else 
 
-@foreach($tags_en as $tag)
 <a class="item active" title="Phone" href="{{ url('product/tag/'.$tag->product_tags_en) }}">
-	{{ str_replace(',',' ',$tag->product_tags_en)  }}</a> 
-@endforeach
+	</a> 
 
-  @endif
-
+	
 	 </div>
 <!-- /.tag-list --> 
 </div>

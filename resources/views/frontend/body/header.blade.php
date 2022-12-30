@@ -7,20 +7,13 @@
         <div class="cnt-account">
           <ul class="list-unstyled">
             <li><a href="#"><i class="icon fa fa-user"></i>
-              @if(session()->get('language') == 'sinhala') මගේ ගිණුම @else My Account @endif</a></li>
             <li><a href="#"><i class="icon fa fa-heart"></i>
-              @if(session()->get('language') == 'sinhala') පැතුම් ලැයිස්තුව @else Wishlist @endif</a></li>
             <li><a href="#"><i class="icon fa fa-shopping-cart"></i>
-              @if(session()->get('language') == 'sinhala') මගේ බඩු ලැයිස්තුව @else My Cart @endif</a></li>
             <li><a href="#"><i class="icon fa fa-check"></i>
-             @if(session()->get('language') == 'sinhala') භාන්ඩ මිලදී ගැනීමට පෙර සැකසුම @else Checkout @endif</a></li>
-            @auth
+            
             <li><a href="{{ route('dashboard')}}"><i class="icon fa fa-user"></i>
-              @if(session()->get('language') == 'sinhala') පරිශීලක ගිණුම @else User Profile @endif</a></li>
-            @else
             <li><a href="{{ route('login')}}"><i class="icon fa fa-lock"></i>
-              @if(session()->get('language') == 'sinhala') ගිණුමට ඇතුල්වීම/ලියාපදිංචි වීම @else Login/Register @endif</a></li>
-            @endauth
+            
             
           </ul>
         </div>
@@ -35,15 +28,11 @@
                 <li><a href="#">GBP</a></li>
               </ul>
             </li>
-            <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">
-            @if(session()->get('language') == 'sinhala') භාෂාව @else language @endif
-             </span><b class="caret"></b></a>
+            <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">English </span><b class="caret"></b></a>
               <ul class="dropdown-menu">
-                @if(session()->get('language') == 'sinhala')
-                <li><a href="{{ route('english.language')}}">English</a></li>
-                @else
-                <li><a href="{{ route('sinhala.language')}}">සිංහල</a></li>
-                @endif
+                <li><a href="#">English</a></li>
+                <li><a href="#">French</a></li>
+                <li><a href="#">German</a></li>
               </ul>
             </li>
           </ul>
@@ -63,7 +52,7 @@
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-3 logo-holder"> 
           <!-- ============================================================= LOGO ============================================================= -->
-          <div class="logo"> <a href="{{ url('/')}}"> <img src="{{ asset('frontend/assets/images/logo.png')}}" alt="logo"> </a> </div>
+          <div class="logo"> <a href="{{url('/')}}"> <img src="{{asset('frontend/assets/images/logo.png')}}" alt="logo"> </a> </div>
           <!-- /.logo --> 
           <!-- ============================================================= LOGO : END ============================================================= --> </div>
         <!-- /.logo-holder -->
@@ -108,7 +97,7 @@
                 <div class="cart-item product-summary">
                   <div class="row">
                     <div class="col-xs-4">
-                      <div class="image"> <a href="detail.html"><img src="{{ asset('frontend/assets/images/cart.jpg')}}" alt=""></a> </div>
+                      <div class="image"> <a href="detail.html"><img src="assets/images/cart.jpg" alt=""></a> </div>
                     </div>
                     <div class="col-xs-7">
                       <h3 class="name"><a href="index.php?page-detail">Simple Product</a></h3>
@@ -155,51 +144,61 @@
           <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
             <div class="nav-outer">
               <ul class="nav navbar-nav">
-                <li class="active dropdown yamm-fw"> <a href="{{ url('/')}}" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown"> @if(session()->get('language') == 'sinhala') මුල් පිටුව @else Home @endif</a> </li>
-                @php
+                <li class="active dropdown yamm-fw"> <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Home</a> </li>
 
-                $categories = App\Models\Category::orderBy('category_name_en','ASC')->get();
+@php 
+$categories=App\Models\Category::orderby('category_name','ASC')->get();
 
-                @endphp
+@endphp
 
-                @foreach($categories as $category)
-                <li class="dropdown yamm mega-menu"> <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">
-                  @if(session()->get('language') == 'sinhala') {{$category->category_name_sin}} @else {{$category->category_name_en}} @endif</a>
+
+@foreach($categories as $category)
+
+                <li class="dropdown yamm mega-menu"> <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{$category->category_name}}</a>
                   <ul class="dropdown-menu container">
                     <li>
                       <div class="yamm-content ">
                         <div class="row">
-                          @php
+                        @php 
+$subcategories=App\Models\SubCategory::where('category_id',$category->id)->orderby('subcategory_name','ASC')->get();
 
-                          $subcategories = App\Models\SubCategory::where("category_id",$category->id)->orderBy('subcategory_name_en','ASC')->get();
+@endphp
 
-                          @endphp
-                          @foreach($subcategories as $subcategory)
+@foreach($subcategories as $subcategory)
                           <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                            
-                            <h2 class="title">@if(session()->get('language') == 'sinhala') {{$subcategory->subcategory_name_sin}} @else {{$subcategory->subcategory_name_en}} @endif</h2>
                           
-                          @php
 
-                          $subsubcategories = App\Models\SubSubCategory::where("subcategory_id",$subcategory->id)->orderBy('subsubcategory_name_en','ASC')->get();
+                          
+                          <h2 class="title">{{$subcategory->subcategory_name}}</h2>
+                          @php 
+$subsubcategories=App\Models\SubSubCategory::where('subcategory_id',$subcategory->id)->orderby('subsubcategory_name','ASC')->get();
 
-                          @endphp
-                          @foreach($subsubcategories as $subsubcategory)
+@endphp
+@foreach($subsubcategories as $subsubcategory)
+
                             <ul class="links">
-                              <li><a href="#">@if(session()->get('language') == 'sinhala') {{$subsubcategory->subsubcategory_name_sin}} @else {{$subsubcategory->subsubcategory_name_en}} @endif</a></li>
+                              <li><a href="#">{{$subsubcategory->subsubcategory_name}}</a></li>
+                              
                             </ul>
-                          @endforeach
+
+                            @endforeach
                           </div>
+
                           <!-- /.col -->
                           @endforeach
-                          <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image"> <img class="img-responsive" src="{{ asset('frontend/assets/images/banners/top-menu-banner.jpg')}}" alt=""> </div>
+                          
+         <!-- /.col -->
+                          
+                          <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image"> <img class="img-responsive" src="assets/images/banners/top-menu-banner.jpg" alt=""> </div>
                           <!-- /.yamm-content --> 
                         </div>
                       </div>
                     </li>
                   </ul>
                 </li>
+
                 @endforeach
+               
                 <li class="dropdown  navbar-right special-menu"> <a href="#">Todays offer</a> </li>
               </ul>
               <!-- /.navbar-nav -->

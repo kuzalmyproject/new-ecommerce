@@ -14,7 +14,7 @@
 					<!-- /.box-header -->
 					<div class="box-body">
 						<div class="table-responsive">
-							<table id="example1" class="table table-bordered table-striped">
+							<table id="example1" class="table table-bordered table-striped ">
 								<thead>
 									<tr>
 										<th>Image </th>
@@ -30,7 +30,7 @@
 									@foreach($products as $item)
 									<tr>
 										<td> <img src="{{ asset($item->product_thambnail) }}" style="width: 60px; height: 50px;">  </td>
-										<td>{{ $item->product_name_en }}</td>
+										<td>{{ $item->product_name }}</td>
 										<td>Rs.{{ $item->selling_price }} </td>
 										<td>{{ $item->product_qty }} Pic</td>
 										<td>
@@ -41,12 +41,10 @@
 											$amount = $item->selling_price - $item->discount_price;
 											$discount = ($amount/$item->selling_price) * 100;
 											@endphp
-											@if($discount == 0)
-                                            <span class="badge badge-pill badge-danger">No Discount</span>
-											@else
+											
 											<span class="badge badge-pill badge-danger">{{ round($discount)  }} %</span>
 											@endif
-											@endif
+											
 										</td>
 										<td>
 											@if($item->status == 1)
@@ -55,7 +53,7 @@
 											<span class="badge badge-pill badge-danger"> InActive </span>
 											@endif
 										</td>
-										<td width="30%">
+										<td width="120px">
 											<a href="{{ route('product.display',$item->id) }}" class="btn btn-primary" title="Product Details Data"><i class="fa fa-eye"></i> </a>
 											<a href="{{ route('product.edit',$item->id) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i> </a>
 											<a href="{{ route('product.delete',$item->id) }}" class="btn btn-danger" title="Delete Data" id="delete">
